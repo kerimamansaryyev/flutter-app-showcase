@@ -16,6 +16,7 @@ Future<void> main() async {
   late LoginPresenter presenter;
   late LoginNavigator navigator;
 
+  // ignore: no_leading_underscores_for_local_identifiers
   void _initMvp() {
     initParams = const LoginInitialParams();
     model = LoginPresentationModel.initial(

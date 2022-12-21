@@ -21,6 +21,7 @@ Future<void> main() async {
   late AppInitPresenter presenter;
   late AppInitNavigator navigator;
 
+  // ignore: no_leading_underscores_for_local_identifiers
   void _initMvp() {
     initParams = const AppInitInitialParams();
     model = AppInitPresentationModel.initial(
@@ -40,7 +41,8 @@ Future<void> main() async {
     "app_init_page",
     setUp: () async {
       _initMvp();
-      when(() => AppInitMocks.appInitUseCase.execute()).thenAnswer((_) => successFuture(unit));
+      when(() => AppInitMocks.appInitUseCase.execute())
+          .thenAnswer((_) => successFuture(unit));
     },
     pageBuilder: () => page,
   );
