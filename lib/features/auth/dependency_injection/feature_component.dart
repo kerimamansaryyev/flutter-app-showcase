@@ -64,9 +64,11 @@ void _configureMvp() {
         ..registerFactoryParam<LoginPresentationModel, LoginInitialParams, dynamic>(
           (params, _) => LoginPresentationModel.initial(params),
         )
+        
         ..registerFactoryParam<LoginPresenter, LoginInitialParams, dynamic>(
           (initialParams, _) => LoginPresenter(
             getIt(param1: initialParams),
+            getIt(),
             getIt(),
           ),
         )
