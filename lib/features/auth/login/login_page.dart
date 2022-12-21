@@ -1,7 +1,6 @@
 // ignore: unused_import
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/core/helpers.dart';
 import 'package:flutter_demo/core/utils/mvp_extensions.dart';
 import 'package:flutter_demo/features/auth/login/login_presentation_model.dart';
 import 'package:flutter_demo/features/auth/login/login_presenter.dart';
@@ -32,7 +31,7 @@ class _LoginPageState extends State<LoginPage> with PresenterStateMixin<LoginVie
                 decoration: InputDecoration(
                   hintText: appLocalizations.usernameHint,
                 ),
-                onChanged: (text) => doNothing(), //TODO
+                onChanged: (text) => presenter.setUsername(text), 
               ),
               const SizedBox(height: 8),
               TextField(
@@ -40,12 +39,19 @@ class _LoginPageState extends State<LoginPage> with PresenterStateMixin<LoginVie
                 decoration: InputDecoration(
                   hintText: appLocalizations.passwordHint,
                 ),
-                onChanged: (text) => doNothing(), //TODO
+                onChanged: (text) => presenter.setPassword(text),
               ),
               const SizedBox(height: 16),
               stateObserver(
-                builder: (context, state) => ElevatedButton(
-                  onPressed: () => doNothing(), //TODO
+                buildWhen: (previous, current) => previous.isLoginEnabled != current.isLoginEnabled || previous.isLoading != current.isLoading,
+                builder: (context, state) => 
+                state.isLoading?
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+                :
+                ElevatedButton(
+                  onPressed: !state.isLoginEnabled? null: () => presenter.onLogin(),
                   child: Text(appLocalizations.logInAction),
                 ),
               ),
